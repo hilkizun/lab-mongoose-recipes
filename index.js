@@ -15,9 +15,30 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  Recipe.insertMany(data)
   .then(recipe => {
-    console.log(`Successfully added recipe: ${recipe.title}`);
+    recipe.foreEach(recipe => {
+      console.log(`Successfully added recipe: ${recipe.title}`)
+    });
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: '100'})
+  .then(recipe => {
+    consolelog(`Updated ${recipe.title} duration`);
+  })
+  .catch(error => {
+    console.error(`Error ${recipe.title} duration`, error);
+  });
+
+  Recipe.deleteOne({title: 'Carrot cake'})
+  .then(recipe => {
+    consolelog(`Remove ${recipe.title}`);
+  })
+  .catch(error => {
+    console.error(`Error removing ${recipe.title}`, error);
+  });
+
+
